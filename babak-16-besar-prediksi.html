@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediksi Babak 16 Besar — Piala Dunia FIFA 2026 | by @nostnoisy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ============================================================
+   CARA EDIT WEBSITE INI (baca dulu sebelum mengubah):
+   1. Untuk ganti WARNA  -> ubah nilai di blok :root di bawah ini
+   2. Untuk ganti SKOR/TIM/PREDIKSI -> scroll ke bagian <script>
+      paling bawah, cari array MATCHES, edit langsung di situ
+   3. Untuk ganti JUDUL/TEKS -> edit langsung di bagian <body>
+   4. File ini 100% berdiri sendiri (HTML+CSS+JS jadi satu),
+      tinggal buka pakai browser apa saja, atau upload ke
+      Netlify/Vercel/GitHub Pages agar online & bisa diakses
+      banyak orang.
+   ============================================================ */
+    :root {
+      --bg: #030816;
+      --bg-card: rgba(13, 28, 48, 0.7);
+      --gold: #FFB800;
+      --gold-dim: rgba(255, 184, 0, .15);
+      --gold-border: rgba(255, 184, 0, .25);
+      --green: #00C87B;
+      --green-dim: rgba(0, 200, 123, .12);
+      --blue: #5B8FFF;
+      --blue-dim: rgba(91, 143, 255, .12);
+      --red: #FF4B4B;
+      --purple: #A67BFF;
+      --w: #FFFFFF;
+      --g: #8FA2C4;
+      --g2: #2E4B6E;
+      --border: rgba(26, 51, 88, 0.6);
+      --glass-blur: blur(12px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      background-image:
+        linear-gradient(rgba(26, 51, 88, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 51, 88, 0.04) 1px, transparent 1px),
+        radial-gradient(at 10% 20%, rgba(91, 143, 255, 0.12) 0px, transparent 40%),
+        radial-gradient(at 90% 80%, rgba(166, 123, 255, 0.12) 0px, transparent 50%);
+      background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+      color: var(--w);
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-attachment: fixed;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #050A20 0%, #0B1535 45%, #110520 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 46px 20px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(255, 184, 0, .07), transparent);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 184, 0, .1);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      padding: 5px 18px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(24px, 5.5vw, 50px);
+      letter-spacing: 1.5px;
+      line-height: 1.08;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: normal;
+      text-shadow: 0 0 15px rgba(255, 184, 0, .5)
+    }
+
+    .hero-sub {
+      color: var(--g);
+      font-size: 13px;
+      margin-top: 10px;
+      letter-spacing: .3px
+    }
+
+    .hero-owner {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      color: var(--g);
+      letter-spacing: 1px;
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .hero-owner span {
+      color: var(--gold);
+      font-weight: 600
+    }
+
+    .stars-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      background: rgba(255, 255, 255, .7);
+      border-radius: 50%;
+      animation: tw var(--d) var(--delay) infinite alternate ease-in-out
+    }
+
+    @keyframes tw {
+      from {
+        opacity: .2;
+        transform: scale(1)
+      }
+
+      to {
+        opacity: .9;
+        transform: scale(1.8)
+      }
+    }
+
+    /* ── STATS BAR ── */
+    .stats {
+      max-width: 760px;
+      margin: 26px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(13, 28, 48, 0.45);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 18px 10px;
+      border-right: 1px solid var(--border);
+      transition: background 0.3s ease;
+    }
+
+    .stat:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .stat:last-child {
+      border-right: none
+    }
+
+    .stat-n {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 28px;
+      color: var(--gold);
+      line-height: 1;
+      text-shadow: 0 0 10px rgba(255, 184, 0, .4)
+    }
+
+    .stat-l {
+      font-size: 10px;
+      color: var(--g);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px
+    }
+
+    /* ── ALERT BAR ── */
+    .alert-bar {
+      max-width: 920px;
+      margin: 22px auto 0;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      justify-content: center;
+      background: rgba(13, 28, 48, 0.4);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid rgba(91, 143, 255, 0.15);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .alert-dot {
+      width: 7px;
+      height: 7px;
+      background: #00C87B;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 5px #00C87B;
+      animation: pulse 2s infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .5;
+        transform: scale(.8)
+      }
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 16px 10px
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 14px 20px;
+      background: rgba(13, 28, 48, 0.4);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 26px;
+      font-size: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .legend-title {
+      color: var(--g);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── SEARCH BOX ── */
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      width: 200px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 12px rgba(91, 143, 255, 0.25);
+      width: 240px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: var(--w);
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      width: 100%;
+      margin-left: 6px;
+    }
+
+    .search-box input::placeholder {
+      color: var(--g);
+      opacity: 0.6;
+    }
+
+    .search-icon {
+      font-size: 11px;
+      color: var(--g);
+      opacity: 0.8;
+    }
+
+    /* ── COPY BUTTON ── */
+    .btn-copy {
+      background: transparent;
+      border: none;
+      color: var(--g);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      opacity: 0.5;
+    }
+
+    .mc:hover .btn-copy {
+      opacity: 1;
+    }
+
+    .btn-copy:hover {
+      color: var(--gold);
+      background: rgba(255, 184, 0, 0.1);
+      transform: scale(1.15);
+    }
+
+    /* ── TOAST NOTIFICATION ── */
+    #toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(13, 28, 48, 0.95);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 12px 24px;
+      color: var(--w);
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 1000;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 184, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    #toast-notification.toast-show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .badge:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.15);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .b-all {
+      background: rgba(255, 255, 255, .05);
+      color: var(--w);
+      border: 1px solid rgba(255, 255, 255, .15)
+    }
+
+    .b-win {
+      background: var(--green-dim);
+      color: var(--green);
+      border: 1px solid rgba(0, 200, 123, .3)
+    }
+
+    .b-pred {
+      background: var(--blue-dim);
+      color: var(--blue);
+      border: 1px solid rgba(91, 143, 255, .3)
+    }
+
+    .b-lose {
+      background: rgba(255, 75, 75, .1);
+      color: var(--red);
+      border: 1px solid rgba(255, 75, 75, .3)
+    }
+
+    .badge.active {
+      outline: 2px solid;
+      box-shadow: 0 0 12px rgba(255, 255, 255, .1);
+    }
+
+    .badge.active.b-all {
+      outline-color: var(--w)
+    }
+
+    .badge.active.b-win {
+      outline-color: var(--green)
+    }
+
+    .badge.active.b-lose {
+      outline-color: var(--red)
+    }
+
+    .badge.active.b-pred {
+      outline-color: var(--blue)
+    }
+
+    .leg {
+      color: var(--g)
+    }
+
+    /* ── DAY DIVIDER ── */
+    .day-div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 30px 0 16px;
+    }
+
+    .day-div:first-child {
+      margin-top: 0
+    }
+
+    .day-pill {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--gold);
+      background: rgba(255, 184, 0, .08);
+      border: 1px solid var(--gold-border);
+      padding: 5px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .day-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px
+    }
+
+    /* ── MATCH CARD ── */
+    .mc {
+      background: var(--bg-card);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow .3s, border-color .3s;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .mc-win:hover {
+      transform: translateY(-4px);
+      border-color: var(--green);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .6), 0 0 20px rgba(0, 200, 123, .25)
+    }
+
+    .mc-lose:hover {
+      transform: translateY(-4px);
+      border-color: var(--red);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .6), 0 0 20px rgba(255, 75, 75, .25)
+    }
+
+    .mc-pred:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .6), 0 0 20px rgba(91, 143, 255, .25)
+    }
+
+    .mc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 12px;
+      background: rgba(0, 0, 0, .2);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      gap: 8px;
+    }
+
+    .mc-meta {
+      color: var(--g);
+      font-size: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .mc-body {
+      padding: 14px 16px
+    }
+
+    .teams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 6px
+    }
+
+    .t-home {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .t-away {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end
+    }
+
+    .t-flag {
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .mc:hover .t-flag {
+      transform: scale(1.22) rotate(6deg);
+    }
+
+    .t-name {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.2
+    }
+
+    .t-name.w {
+      color: var(--w)
+    }
+
+    .t-name.l {
+      color: var(--g)
+    }
+
+    .sc {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      justify-content: center
+    }
+
+    .sc-n {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 32px;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .sc-n.w {
+      color: var(--w);
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+    }
+
+    .sc-n.l {
+      color: var(--g2)
+    }
+
+    .sc-sep {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 22px;
+      color: #2A4A6A;
+      line-height: 1
+    }
+
+    .pen-box {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(255, 184, 0, .07);
+      border: 1px solid var(--gold-border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pen-icon {
+      font-size: 14px;
+      flex-shrink: 0
+    }
+
+    .pen-txt {
+      flex: 1;
+      font-size: 11px;
+      color: #D4AF37;
+      line-height: 1.4
+    }
+
+    .pen-sc {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 18px;
+      color: var(--gold);
+      flex-shrink: 0
+    }
+
+    /* win AKTUAL — box mencolok, dua status: benar (hijau) / meleset (merah) */
+    .actual-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 2px solid;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .actual-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    .actual-box.ac-correct {
+      border-color: var(--green);
+      background: linear-gradient(135deg, rgba(0, 200, 123, .16), rgba(0, 200, 123, .05));
+      box-shadow: 0 0 24px rgba(0, 200, 123, .18), inset 0 0 0 1px rgba(0, 200, 123, .1);
+    }
+
+    .actual-box.ac-wrong {
+      border-color: var(--red);
+      background: linear-gradient(135deg, rgba(255, 75, 75, .16), rgba(255, 75, 75, .05));
+      box-shadow: 0 0 24px rgba(255, 75, 75, .18), inset 0 0 0 1px rgba(255, 75, 75, .1);
+    }
+
+    .actual-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .actual-box.ac-correct .actual-label {
+      color: var(--green)
+    }
+
+    .actual-box.ac-wrong .actual-label {
+      color: var(--red)
+    }
+
+    .actual-score {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px
+    }
+
+    .actual-flag {
+      font-size: 24px
+    }
+
+    .actual-num {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--w)
+    }
+
+    .actual-sep {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 26px;
+      color: var(--g)
+    }
+
+    .actual-team {
+      font-size: 11px;
+      color: var(--g);
+      text-align: center;
+      margin-top: 2px
+    }
+
+    .actual-sub {
+      font-size: 11px;
+      text-align: center;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .actual-box.ac-correct .actual-sub {
+      color: var(--green)
+    }
+
+    .actual-box.ac-wrong .actual-sub {
+      color: var(--red)
+    }
+
+    .lolos-h {
+      font-size: 10px;
+      color: var(--green);
+      margin-top: 2px;
+      font-weight: 600
+    }
+
+    .lolos-a {
+      font-size: 10px;
+      color: var(--green);
+      margin-top: 2px;
+      text-align: right;
+      font-weight: 600
+    }
+
+    .kalah-h {
+      font-size: 10px;
+      color: var(--g2);
+      margin-top: 2px
+    }
+
+    .kalah-a {
+      font-size: 10px;
+      color: var(--g2);
+      margin-top: 2px;
+      text-align: right
+    }
+
+    .mc-note {
+      padding: 8px 14px;
+      font-size: 11px;
+    }
+
+    .pred-note {
+      color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.04);
+      border-top: 1px solid rgba(91, 143, 255, 0.1);
+      font-style: italic;
+    }
+
+    .actual-note {
+      color: #fde047;
+      background: rgba(255, 184, 0, 0.04);
+      border-top: 1px dashed rgba(255, 184, 0, 0.15);
+      font-style: italic;
+    }
+
+    .mc-foot {
+      padding: 7px 12px;
+      font-size: 10px;
+      color: var(--g);
+      background: rgba(0, 0, 0, .2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 48px;
+      padding: 28px 20px;
+      background: #040B18;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 6px
+    }
+
+    .footer-sub {
+      font-size: 12px;
+      color: var(--g);
+      margin-bottom: 6px
+    }
+
+    .footer-owner {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--g);
+      margin-bottom: 14px;
+    }
+
+    .footer-owner span {
+      color: var(--gold);
+      font-weight: 600
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--g2)
+    }
+
+    /* ── NAV BABAK ── */
+    .nav-babak {
+      max-width: 920px;
+      margin: 16px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 16px;
+    }
+
+    .nav-babak a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--g);
+      background: rgba(13, 28, 48, 0.4);
+      transition: all 0.25s ease;
+    }
+
+    .nav-babak a:hover {
+      color: var(--w);
+      border-color: var(--gold-border);
+      background: rgba(255, 184, 0, .06);
+    }
+
+    .nav-babak a.active {
+      color: var(--gold);
+      border-color: var(--gold-border);
+      background: rgba(255, 184, 0, .1);
+      box-shadow: 0 0 12px rgba(255, 184, 0, .15);
+    }
+
+    @media(max-width:580px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .t-name {
+        font-size: 12px
+      }
+
+      .sc-n {
+        font-size: 26px
+      }
+
+      .hero h1 {
+        font-size: 22px
+      }
+
+      .stat {
+        min-width: 33%
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars-wrap" id="starsWrap"></div>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <header class="hero">
+    <div class="hero-eyebrow">⚽ FIFA World Cup 2026™ · Kanada · Meksiko · AS</div>
+    <h1>PREDIKSI BABAK <em>16 BESAR</em></h1>
+    <p class="hero-sub">8 laga · Round of 16 · 5 Juli – 8 Juli 2026 (WIB)</p>
+    <p class="hero-owner">by <span>@nostnoisy</span></p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n" id="stat-total">0</div>
+        <div class="stat-l">Total Laga</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" id="stat-finished">0</div>
+        <div class="stat-l">Laga Selesai</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" id="stat-remaining">0</div>
+        <div class="stat-l">Sisa Laga</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" id="stat-winrate">0%</div>
+        <div class="stat-l">Win Rate Prediksi</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="alert-bar">
+    <div class="alert-dot"></div>
+    <span style="color:var(--green)">Jangan Lupa Follow TIKTOK @nostnoisy !!! // Jangan lupa Donate atmin link di BIO
+      😜😜😜 </span>
+  </div>
+
+  <!-- ══ NAV BABAK ══ -->
+  <nav class="nav-babak">
+    <a href="babak-32-besar-prediksi.html">← Round of 32</a>
+    <a href="babak-16-besar-prediksi.html" class="active">Round of 16 ●</a>
+  </nav>
+
+  <!-- ═══════════════════ CONTENT ═══════════════════ -->
+  <main class="content">
+
+    <div class="legend">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span class="legend-title">Filter Laga:</span>
+        <span class="badge b-all" id="filter-all" onclick="setFilter('all')">🏆 SEMUA</span>
+        <span class="badge b-win" id="filter-win" onclick="setFilter('win')">✓ PREDIKSI WIN</span>
+        <span class="badge b-lose" id="filter-lose" onclick="setFilter('lose')">✕ PREDIKSI LOSE</span>
+        <span class="badge b-pred" id="filter-pred" onclick="setFilter('pred')">PREDIKSI MENDATANG</span>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Cari negara..." oninput="handleSearch(this.value)" />
+      </div>
+    </div>
+
+    <div id="matches-container"></div>
+
+  </main>
+
+  <footer>
+    <div class="footer-logo">⚽ ROUND OF 16 — WC 2026</div>
+    <div class="footer-sub">Prediksi Babak 16 Besar FIFA World Cup 2026</div>
+    <div class="footer-owner"><span>@nostnoisy</span></div>
+    <div class="footer-note">Prediksi analitis berdasarkan performa tim, statistik, dan rekam
+      jejak head-to-head · Bukan prediksi resmi FIFA</div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════
+     DATA PERTANDINGAN — EDIT DI SINI UNTUK MENGUBAH PREDIKSI
+     ═══════════════════════════════════════════════════════════
+     type: 'win'    = pertandingan sudah selesai resmi & object 'actual'
+                       sudah diisi -> badge WIN/LOSE di atas OTOMATIS
+                       ngikutin cocok/nggaknya pred vs actual (gak perlu
+                       diganti manual jadi 'lose' kalau prediksinya meleset)
+           'lose'    = override manual: paksa badge LOSE walau 'actual'
+                       belum/nggak diisi
+           'prediksi' = prediksi laga yang belum berlangsung
+
+     pred   = prediksi awal kamu SEBELUM laga dimulai (wajib diisi semua match)
+              {hs, as, pen?} -> hs/as = skor, pen opsional kalau prediksi
+              berakhir lewat adu penalti {h, a, txt}
+              ★ Skor ini yang TAMPIL BESAR di kartu (selalu prediksi)
+
+     actual = win ASLI pertandingan (HANYA diisi kalau type:'win')
+              {hs, as, pen?} -> formatnya sama kayak pred
+              ★ Muncul di box win AKTUAL yang mencolok (hijau kalau
+                pemenang sesuai prediksi, merah kalau meleset)
+              Begitu laga selesai, tinggal isi object 'actual' ini
+              dan ganti type jadi 'win' — box-nya muncul otomatis!
+
+     noteBefore = kata-kata / catatan SEBELUM hasil (saat prediksi berlangsung)
+     noteAfter  = kata-kata / catatan SESUDAH hasil (ulasan setelah laga selesai)
+                  ★ Silakan diisi bebas sesukamu untuk setiap match!
+     ═══════════════════════════════════════════════════════════ -->
+  <script>
+    const MATCHES = [
+      {
+        day: 'Minggu, 5 Juli 2026', items: [
+          {
+            id: 'R16-01', time: '00:00 WIB', venue: 'NRG Stadium, Houston',
+            h: { n: 'Kanada', f: '🇨🇦' }, a: { n: 'Maroko', f: '🇲🇦' },
+            type: 'win',
+            pred: { hs: 0, as: 2 },
+            actual: { hs: 0, as: 3},
+            noteBefore: 'Maroko hadir dengan lini pertahanan solid setelah singkirkan Belanda lewat adu penalti — Kanada akan kesulitan di kandang sendiri',
+            noteAfter: 'EZ PREDIK'
+          },
+          {
+            id: 'R16-02', time: '04:00 WIB', venue: 'Lincoln Financial Field, Philadelphia',
+            h: { n: 'Paraguay', f: '🇵🇾' }, a: { n: 'Prancis', f: '🇫🇷' },
+            type: 'win',
+            pred: { hs: 0, as: 2 },
+            actual: { hs: 0, as: 1},
+            noteBefore: 'Paraguay datang dengan pertahanan pede tingkat tinggi usai singkirkan Jerman — tapi Mbappé dan Prancis terlalu tajam untuk ditahan, selisih 2 gol sangat mungkin',
+            noteAfter: 'Prancis win sesuai'
+          },
+        ]
+      },
+
+      {
+        day: 'Senin, 6 Juli 2026', items: [
+          {
+            id: 'R16-03', time: '03:00 WIB', venue: 'MetLife Stadium, New Jersey',
+            h: { n: 'Brazil', f: '🇧🇷' }, a: { n: 'Norwegia', f: '🇳🇴' },
+            type: 'prediksi',
+            pred: { hs: 2, as: 1 },
+            noteBefore: 'Laga big match! Maghalaes vs Haaland — Tapi kedalaman sq jelas brazil sih',
+          },
+          {
+            id: 'R16-04', time: '07:00 WIB', venue: 'Estadio Azteca, Mexico City',
+            h: { n: 'Meksiko', f: '🇲🇽' }, a: { n: 'Inggris', f: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+            type: 'prediksi',
+            pred: { hs: 2, as: 2, pen: { h: 4, a: 5, txt: '100% WISH ME LUCK WK' }},
+            noteBefore: 'Tuan rumah lagi onfire dan fanatisme 100 ribu suporter selalu jadi faktor penting,Tapi footbal its coming home',
+          },
+        ]
+      },
+
+      {
+        day: 'Selasa, 7 Juli 2026', items: [
+          {
+            id: 'R16-05', time: '02:00 WIB', venue: 'AT&T Stadium, Arlington',
+            h: { n: 'Portugal', f: '🇵🇹' }, a: { n: 'Spanyol', f: '🇪🇸' },
+            type: 'prediksi',
+            hidden: true,
+            pred: { hs: 1, as: 2 },
+            noteBefore: 'rivalitas Iberia klasik — Minimal ada 2 gol bahkan lebih',
+          },
+          {
+            id: 'R16-06', time: '07:00 WIB', venue: 'Lumen Field, Seattle',
+            h: { n: 'Amerika Serikat', f: '🇺🇸' }, a: { n: 'Belgia', f: '🇧🇪' },
+            type: 'prediksi',
+            hidden: true,
+            pred: { hs: 1, as: 2 },
+            noteBefore: 'Tuan rumah tanpa Balogun yang absen karena akumulasi kartu — De Bruyne, Lukaku, dan Courtois jadi ancaman serius',
+          },
+          {
+            id: 'R16-07', time: '23:00 WIB', venue: 'Mercedes-Benz Stadium, Atlanta',
+            h: { n: 'Argentina', f: '🇦🇷' }, a: { n: 'Mesir', f: '🇪🇬' },
+            type: 'prediksi',
+            hidden: true,
+            pred: { hs: 2, as: 1 },
+            noteBefore: 'Messi vs Salah — tapi Argentina yang bertahan sebagai juara bertahan diprediksi lebih kompak',
+          },
+        ]
+      },
+
+      {
+        day: 'Rabu, 8 Juli 2026', items: [
+          {
+            id: 'R16-08', time: '03:00 WIB', venue: 'BC Place, Vancouver',
+            h: { n: 'Swiss', f: '🇨🇭' }, a: { n: 'Kolombia', f: '🇨🇴' },
+            type: 'prediksi',
+            hidden: true,
+            pred: { hs: 1, as: 2 },
+            noteBefore: 'Swiss tampil solid dan konsisten empat Piala Dunia beruntun, tapi performa impresif Kolombia sepanjang turnamen ini sedikit lebih diunggulkan',
+          },
+        ]
+      },
+    ];
+
+    // ── RENDER (tidak perlu diedit, biarkan apa adanya) ──────
+    function badge(m) {
+      // match selesai & ada hasil aktual -> badge WIN/LOSE dihitung otomatis
+      // dari cocok-tidaknya pemenang prediksi vs pemenang aktual
+      if (m.type === 'win' && m.actual) {
+        return isCorrect(m.pred, m.actual)
+          ? '<span class="badge b-win">✓ PREDIKSI WIN</span>'
+          : '<span class="badge b-lose">✕ PREDIKSI LOSE</span>';
+      }
+      if (m.type === 'lose') return '<span class="badge b-lose">✕ PREDIKSI LOSE</span>';
+      return '<span class="badge b-pred">PREDIKSI MENDATANG</span>';
+    }
+
+    // tentukan siapa menang dari sebuah object skor {hs,as,pen?}
+    function winnerOf(s) {
+      if (s.hs > s.as) return 'h';
+      if (s.as > s.hs) return 'a';
+      if (s.pen) return s.pen.h > s.pen.a ? 'h' : 'a';
+      return null;
+    }
+
+    // bandingkan prediksi vs win asli -> benar (pemenang sesuai) / meleset
+    function isCorrect(pred, actual) {
+      return winnerOf(pred) === winnerOf(actual);
+    }
+
+    function penBox(pen) {
+      if (!pen) return '';
+      return `
+    <div class="pen-box">
+      <span class="pen-icon">⚡</span>
+      <span class="pen-txt">${pen.txt}</span>
+      <span class="pen-sc">${pen.h}–${pen.a}</span>
+    </div>`;
+    }
+
+    function card(m) {
+      const hasActual = m.type === 'win' && m.actual;
+      const top = m.pred;                              // skor atas SELALU prediksi
+      const hw = winnerOf(top) === 'h', aw = winnerOf(top) === 'a';
+      const hc = hw ? 'w' : 'l', ac = aw ? 'w' : 'l';
+
+      const winLabel = '✓ Diprediksi Menang';
+      const loseLabel = '✕ Diprediksi Kalah';
+
+      let actualBox = '';
+      if (hasActual) {
+        const correct = isCorrect(m.pred, m.actual);
+        const aw_ = winnerOf(m.actual);
+        const winnerName = aw_ === 'h' ? m.h.n : m.a.n;
+        const winnerFlag = aw_ === 'h' ? m.h.f : m.a.f;
+        const sameScore = m.pred.hs === m.actual.hs && m.pred.as === m.actual.as;
+        const subTxt = correct
+          ? (sameScore ? `Skor sama persis dengan prediksi! 🎯 — ${winnerFlag} ${winnerName} menang` : `Sesuai prediksi 🤫 — ${winnerFlag} ${winnerName} menang`)
+          : `NTNTNT Ga sesuai harapan 🥹 — ${winnerFlag} ${winnerName} menang`;
+        actualBox = `
+      <div class="actual-box ${correct ? 'ac-correct' : 'ac-wrong'}">
+        <div class="actual-label">${correct ? '✅ EZZZ WINNN' : ' ❌ NT NT NT'}</div>
+        <div class="actual-score">
+          <span class="actual-flag">${m.h.f}</span>
+          <span class="actual-num">${m.actual.hs}</span>
+          <span class="actual-sep">:</span>
+          <span class="actual-num">${m.actual.as}</span>
+          <span class="actual-flag">${m.a.f}</span>
+        </div>
+        ${penBox(m.actual.pen)}
+        <div class="actual-sub">${subTxt}</div>
+      </div>`;
+      }
+
+      // Ambil data kata-kata sebelum dan sesudah hasil (fallback ke note jika noteBefore tidak ada)
+      const noteBeforeVal = m.noteBefore || m.note;
+      const noteAfterVal = m.noteAfter;
+
+      let noteBeforeHtml = '';
+      if (noteBeforeVal) {
+        noteBeforeHtml = `
+    <div class="mc-note pred-note" style="margin-top:12px; border:1px solid rgba(91, 143, 255, 0.15); border-radius:6px;">
+      <strong>Prediksi:</strong> ${noteBeforeVal}
+    </div>`;
+      }
+
+      let noteAfterHtml = '';
+      if (noteAfterVal) {
+        noteAfterHtml = `<div class="mc-note actual-note">📝 <strong>Hasil:</strong> ${noteAfterVal}</div>`;
+      }
+
+      const status = getMatchStatus(m);
+      return `
+  <div class="mc mc-${status}">
+    <div class="mc-top">
+      ${badge(m)}
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="mc-meta">${m.id} · ${m.venue}</span>
+        <button class="btn-copy" onclick="copyPrediction('${m.id}')" title="Salin Prediksi">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="mc-body">
+      <div class="teams">
+        <div class="t-home">
+          <span class="t-flag">${m.h.f}</span>
+          <div>
+            <div class="t-name ${hc}">${m.h.n}</div>
+            <div class="${hw ? 'lolos-h' : 'kalah-h'}">${hw ? winLabel : loseLabel}</div>
+          </div>
+        </div>
+        <div class="sc">
+          <span class="sc-n ${hc}">${top.hs}</span>
+          <span class="sc-sep">:</span>
+          <span class="sc-n ${ac}">${top.as}</span>
+        </div>
+        <div class="t-away">
+          <div style="text-align:right">
+            <div class="t-name ${ac}">${m.a.n}</div>
+            <div class="${aw ? 'lolos-a' : 'kalah-a'}">${aw ? winLabel : loseLabel}</div>
+          </div>
+          <span class="t-flag">${m.a.f}</span>
+        </div>
+      </div>
+      ${penBox(top.pen)}
+      ${noteBeforeHtml}
+      ${actualBox}
+    </div>
+    ${noteAfterHtml}
+    <div class="mc-foot">⏰ ${m.time}</div>
+  </div>`;
+    }
+
+    // Menentukan status pertandingan untuk filter
+    function getMatchStatus(m) {
+      if (m.type === 'win' && m.actual) {
+        return isCorrect(m.pred, m.actual) ? 'win' : 'lose';
+      }
+      if (m.type === 'lose') return 'lose';
+      return 'pred'; // untuk 'pred' dan 'prediksi'
+    }
+
+    const container = document.getElementById('matches-container');
+
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    function renderMatches() {
+      // Update class active pada filter badge
+      document.querySelectorAll('.legend .badge').forEach(el => {
+        el.classList.remove('active');
+      });
+      const activeBadge = document.getElementById(`filter-${currentFilter}`);
+      if (activeBadge) {
+        activeBadge.classList.add('active');
+      }
+
+      // Filter laga
+      const filteredGroups = MATCHES.map(group => {
+        const items = group.items.filter(m => {
+          if (m.hidden) return false; // laga yang belum mau ditampilkan
+          let matchFilter = true;
+          if (currentFilter !== 'all') {
+            const status = getMatchStatus(m);
+            matchFilter = (status === currentFilter);
+          }
+          let matchSearch = true;
+          if (searchQuery !== '') {
+            const homeName = m.h.n.toLowerCase();
+            const awayName = m.a.n.toLowerCase();
+            matchSearch = homeName.includes(searchQuery) || awayName.includes(searchQuery);
+          }
+          return matchFilter && matchSearch;
+        });
+        return { ...group, items };
+      }).filter(group => group.items.length > 0);
+
+      if (filteredGroups.length === 0) {
+        container.innerHTML = `
+      <div style="text-align:center; padding:48px 20px; color:var(--g); font-size:13px; font-style:italic;">
+        📭 Tidak ada pertandingan dengan filter ini.
+      </div>`;
+        return;
+      }
+
+      container.innerHTML = filteredGroups.map(group => `
+    <div class="day-div">
+      <span class="day-pill">${group.day}</span>
+      <span class="day-line"></span>
+    </div>
+    <div class="grid">
+      ${group.items.map(card).join('')}
+    </div>
+  `).join('');
+    }
+
+    // Handler filter global
+    window.setFilter = function (filterType) {
+      currentFilter = filterType;
+      renderMatches();
+    };
+
+    window.handleSearch = function (val) {
+      searchQuery = val.toLowerCase().trim();
+      renderMatches();
+    };
+
+    window.copyPrediction = function (id) {
+      let matchItem = null;
+      for (const group of MATCHES) {
+        const found = group.items.find(m => m.id === id);
+        if (found) {
+          matchItem = found;
+          break;
+        }
+      }
+      if (!matchItem) return;
+
+      const flagH = matchItem.h.f;
+      const nameH = matchItem.h.n;
+      const flagA = matchItem.a.f;
+      const nameA = matchItem.a.n;
+      const scoreH = matchItem.pred.hs;
+      const scoreA = matchItem.pred.as;
+
+      let text = `Prediksi Piala Dunia 2026 🏆\n${flagH} ${nameH} ${scoreH} - ${scoreA} ${nameA} ${flagA}`;
+      if (matchItem.pred.pen) {
+        text += ` (Win Penalti ${matchItem.pred.pen.h}-${matchItem.pred.pen.a})`;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Prediksi ${nameH} vs ${nameA} disalin! 📋`);
+      }).catch(err => {
+        console.error('Gagal menyalin: ', err);
+      });
+    };
+
+    function showToast(message) {
+      let toast = document.getElementById('toast-notification');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.className = 'toast-show';
+
+      setTimeout(() => {
+        toast.className = '';
+      }, 2500);
+    }
+
+    function updateStats() {
+      let total = 0;
+      let finished = 0;
+      let correct = 0;
+
+      MATCHES.forEach(group => {
+        group.items.forEach(m => {
+          total++;
+          if (m.type === 'win') {
+            finished++;
+            if (m.actual && isCorrect(m.pred, m.actual)) {
+              correct++;
+            }
+          }
+        });
+      });
+
+      const remaining = total - finished;
+      const winRate = finished > 0 ? Math.round((correct / finished) * 100) : 0;
+
+      const totalEl = document.getElementById('stat-total');
+      const finishedEl = document.getElementById('stat-finished');
+      const remainingEl = document.getElementById('stat-remaining');
+      const winrateEl = document.getElementById('stat-winrate');
+
+      if (totalEl) totalEl.textContent = total;
+      if (finishedEl) finishedEl.textContent = finished;
+      if (remainingEl) remainingEl.textContent = remaining;
+      if (winrateEl) winrateEl.textContent = winRate + '%';
+    }
+
+    // Render awal
+    updateStats();
+    renderMatches('all');
+
+    // ── STARS DEKORASI ──────────────────────────────────────
+    (function () {
+      const w = document.getElementById('starsWrap');
+      for (let i = 0; i < 60; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const sz = Math.random() * 2 + 1;
+        s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random() * 100}%;left:${Math.random() * 100}%;--d:${2 + Math.random() * 3}s;--delay:${Math.random() * 3}s`;
+        w.appendChild(s);
+      }
+    })();
+  </script>
+</body>
+
+</html>
